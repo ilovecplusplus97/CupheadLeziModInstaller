@@ -6,7 +6,7 @@
 #include <QFile>
 #include <QObject>
 
-std::string Utility::getFileMD5(const std::string_view& filename) {
+std::string Utility::getFileHash(const std::string_view& filename) {
     QCryptographicHash hash(QCryptographicHash::Md5);
     QFile file(filename.data());
     file.open(QFile::ReadOnly);
@@ -64,7 +64,7 @@ bool Utility::checkIntergrity(const GamePaths& gamePaths, std::function<void(con
 }
 
 InstallStatus Utility::checkInstallStatus(const GamePaths& gamePaths) {
-    std::string originalAssemblyFileHash = getFileMD5(gamePaths.originalAssemblyFile.string());
+    std::string originalAssemblyFileHash = getFileHash(gamePaths.originalAssemblyFile.string());
     bool isInstalledAsset = std::filesystem::exists(gamePaths.assetFileInstallPath);
     bool isInstalledAssembly = (originalAssemblyFileHash == assemblyFileHash);
     if (isInstalledAsset && isInstalledAssembly) {

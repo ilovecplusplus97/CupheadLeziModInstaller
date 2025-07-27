@@ -24,7 +24,7 @@ struct GamePaths {
 struct Utility {
     Utility() = delete;
 
-    static std::string getFileMD5(const std::string_view& filename);
+    static std::string getFileHash(const std::string_view& filename);
     static GamePaths getGamePaths(const std::filesystem::path& gameFile);
     static bool checkModIntegrity(std::function<void(const QString&)> error_callback);
     static bool checkGameIntergrity(const GamePaths& gamePaths, std::function<void(const QString&)> error_callback);
