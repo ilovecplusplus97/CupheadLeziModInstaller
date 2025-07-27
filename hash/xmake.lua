@@ -1,0 +1,16 @@
+includes("generator")
+
+rule("hashgen.assemblyfile")
+    on_config(function (target) 
+        local headerfile_dir = path.join(target:autogendir(), "rules", "hashgen", "assemblyfile")
+        target:add("includedirs", headerfile_dir)
+    end)
+
+    before_buildcmd(function (target, batchcmds, opt) 
+        local assemblyfile = path.join(os.projectdir(), "../", "Assembly-CSharp.dll")
+        assert(os.exists(assemblyfile), "Can't find Assembly-CSharp.dll")
+        local headerfile_dir = path.join(target:autogendir(), "rules", "hashgen", "assemblyfile")
+        local headerfile = path.join(headerfile_dir, "assemblyfilehash.h")
+        batchcmds:mkdir(headerfile_dir)
+        batchcmds:vrunv(target:dep("hashgen"):targetfile(), {assemblyfile, headerfile})
+    end)

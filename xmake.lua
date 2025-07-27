@@ -5,8 +5,12 @@ includes("@builtin/qt")
 set_runtimes("MT")
 set_languages("c++20")
 
+includes("hash")
+
 target("installer")
     set_rundir("$(projectdir)/../")
+    add_deps("hashgen")
+    add_rules("hashgen.assemblyfile")
     if is_plat("windows") then
         add_rules("win.sdk.application")
     end

@@ -64,9 +64,9 @@ bool Utility::checkIntergrity(const GamePaths& gamePaths, std::function<void(con
 }
 
 InstallStatus Utility::checkInstallStatus(const GamePaths& gamePaths) {
-    std::string originalAssemblyFileMD5 = getFileMD5(gamePaths.originalAssemblyFile.string());
+    std::string originalAssemblyFileHash = getFileMD5(gamePaths.originalAssemblyFile.string());
     bool isInstalledAsset = std::filesystem::exists(gamePaths.assetFileInstallPath);
-    bool isInstalledAssembly = (originalAssemblyFileMD5 == assemblyFileMD5);
+    bool isInstalledAssembly = (originalAssemblyFileHash == assemblyFileHash);
     if (isInstalledAsset && isInstalledAssembly) {
         return InstallStatus::Installed;
     }
